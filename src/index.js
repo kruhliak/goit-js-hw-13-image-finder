@@ -13,7 +13,6 @@ const refs = {
 };
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.button.addEventListener('click', onBtnClick);
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -24,6 +23,10 @@ async function getItems(items) {
   try {
     apiItems.page = 1;
     apiItems.query = items;
+
+    const button = document.querySelector('.button');
+    button.addEventListener('click', onBtnClick);
+
     const result = await apiItems.fetchItems();
 
     if (refs.input.value) {
