@@ -1,7 +1,9 @@
 import './sass/main.scss';
 import 'material-design-icons';
-import { fetchItems } from './js/apiService';
+import { ApiService } from './js/apiService';
 import moviesPicturesListTpl from './templates/pictures-list.hbs';
+
+const apiItems = new ApiService();
 
 const refs = {
   form: document.querySelector('#search-form'),
@@ -20,23 +22,38 @@ function onFormSubmit(e) {
 
 async function getItems(items) {
   try {
-    const result = await fetchItems(items);
-    console.log(result);
+    apiItems.page = 1;
+    apiItems.query = items;
+    const result = await apiItems.fetchItems();
+
+    if (refs.input.value) {
+      refs.listPictures.textContent = '';
+    }
     markupItems(result);
   } catch (error) {
     console.log(error);
   }
 }
-function markupItems(items) {
-  refs.listPictures.textContent = '';
-  refs.listPictures.insertAdjacentHTML('beforeend', moviesPicturesListTpl(items));
+async function markupItems(items) {
+  const render = await refs.listPictures.insertAdjacentHTML(
+    'beforeend',
+    moviesPicturesListTpl(items),
+  );
+  return render;
 }
 
-async function onBtnClick(items, page) {
+async function onBtnClick() {
   try {
-    const result = await fetchItems(items, page);
-    console.log(result);
-    markupItems(result);
+    console.log(apiItems.page);
+    apiItems.nextPage();
+    const resultMore = await apiItems.fetchItems();
+
+    markupItems(resultMore);
+
+    refs.listPictures.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+    });
   } catch (error) {
     console.log(error);
   }

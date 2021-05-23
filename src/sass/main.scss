@@ -1,1 +1,73 @@
+button {
+  text-align: center;
+}
+input {
+  height: 30px;
+}
+li {
+  list-style: none;
+}
 
+.search-form {
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+.gallery {
+  columns: 4 200px;
+  column-gap: 1.5rem;
+  width: 90%;
+  margin: 0 auto;
+  .photo-card {
+    width: 150px;
+    margin: 0 1.5rem 1.5rem 0;
+    display: inline-block;
+    width: 100%;
+    border: solid 2px black;
+    padding: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: all 0.25s ease-in-out;
+    &:hover img {
+      filter: grayscale(0);
+    }
+    &:hover {
+      border-color: coral;
+    }
+    img {
+      width: 100%;
+      filter: grayscale(80%);
+      border-radius: 5px;
+      transition: all 0.25s ease-in-out;
+    }
+    p {
+      margin: 5px 0;
+      padding: 0;
+      text-align: center;
+      font-style: italic;
+    }
+    .stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stats-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 5px;
+    }
+    .material-icons {
+      color: teal;
+    }
+  }
+}
