@@ -13,6 +13,7 @@ const refs = {
 };
 
 refs.form.addEventListener('submit', onFormSubmit);
+refs.button.addEventListener('click', onBtnClick);
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -23,7 +24,6 @@ async function getItems(items) {
   try {
     apiItems.page = 1;
     apiItems.query = items;
-
     const result = await apiItems.fetchItems();
 
     if (refs.input.value) {
@@ -39,10 +39,7 @@ async function markupItems(items) {
     'beforeend',
     moviesPicturesListTpl(items),
   );
-
-  const button = document.querySelector('.button');
-
-  button.addEventListener('click', onBtnClick);
+  refs.button.classList.remove('is-hiden');
   return render;
 }
 
