@@ -10,11 +10,11 @@ const refs = {
   button: document.querySelector('.button'),
 };
 
-refs.form.addEventListener('submit', onForm);
+refs.form.addEventListener('submit', onFormSubmit);
+refs.button.addEventListener('click', onBtnClick);
 
-function onForm(e) {
+function onFormSubmit(e) {
   e.preventDefault();
-  // console.log(refs.input.value);
   getItems(refs.input.value);
 }
 
@@ -22,13 +22,22 @@ async function getItems(items) {
   try {
     const result = await fetchItems(items);
     console.log(result);
-    methodName(result);
+    markupItems(result);
   } catch (error) {
     console.log(error);
   }
 }
-function methodName(a) {
+function markupItems(items) {
   refs.listPictures.textContent = '';
-  const markupItems = moviesPicturesListTpl(a);
-  refs.listPictures.insertAdjacentHTML('beforeend', markupItems);
+  refs.listPictures.insertAdjacentHTML('beforeend', moviesPicturesListTpl(items));
+}
+
+async function onBtnClick(items, page) {
+  try {
+    const result = await fetchItems(items, page);
+    console.log(result);
+    markupItems(result);
+  } catch (error) {
+    console.log(error);
+  }
 }
