@@ -24,9 +24,6 @@ async function getItems(items) {
     apiItems.page = 1;
     apiItems.query = items;
 
-    const button = document.querySelector('.button');
-    button.addEventListener('click', onBtnClick);
-
     const result = await apiItems.fetchItems();
 
     if (refs.input.value) {
@@ -42,6 +39,10 @@ async function markupItems(items) {
     'beforeend',
     moviesPicturesListTpl(items),
   );
+
+  const button = document.querySelector('.button');
+
+  button.addEventListener('click', onBtnClick);
   return render;
 }
 
